@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Majlis Pertunangan: Hawa & Najmuddin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- CSS VARIABLES & RESET --- */
+      :root {
+        --bg-color: #f4f4ec; /* Cream background */
+        --text-color: #5d4037; /* Dark Brown text */
+        --accent-color: #aab593; /* Olive Green */
+        --font-script: "Great Vibes", cursive;
+        --font-body: "Montserrat", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ddd;
+        font-family: var(--font-body);
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      /* Bekas Utama (Mobile View Container) */
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+        background-color: var(--bg-color);
+        min-height: 100vh;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding-bottom: 80px; /* Ruang untuk nav bawah */
+        background-image: url("https://img.freepik.com/free-vector/watercolor-nature-background_23-2149069443.jpg"); /* Placeholder watercolor bg */
+        background-size: cover;
+        background-blend-mode: overlay;
+      }
+
+      /* --- 1. OPENING GATES (MOCKUP 1) --- */
+      #opening-screen {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px; /* Match .container max-width */
+        height: 100vh;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 1s ease-in-out;
+      }
+
+      .gate-panel {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 100%;
+        background-image: url("first-page.png");
+        background-size: cover;
+        transition: transform 1s ease-in-out;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .gate-left {
+        left: 0;
+        border-right: 1px solid #ddd;
+        background-position: left center;
+      }
+
+      .gate-right {
+        right: 0;
+        border-left: 1px solid #ddd;
+        background-position: right center;
+      }
+
+      /* Animasi Denyut (Pulse) */
+      @keyframes pulse-animation {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(166, 168, 136, 0.7);
+        }
+        50% {
+          transform: scale(1.1);
+          box-shadow: 0 0 20px 10px rgba(166, 168, 136, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(166, 168, 136, 0);
+        }
+      }
+
+      .open-btn-container {
+        position: relative;
+        z-index: 10000;
+        background-color: #e8e8d8;
+        /* KEMAS KINI SAIZ */
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        animation: pulse-animation 2s infinite ease-in-out;
+        transition: transform 0.5s, opacity 0.5s;
+      }
+
+      .open-btn-container h1 {
+        font-family: var(--font-script);
+        /* KEMAS KINI FONT SIZE */
+        font-size: 1.7rem;
+        margin: 0;
+        line-height: 1.2;
+        text-align: center;
+        /* Laraskan padding untuk pusat menegak selepas saiz fon berubah */
+        padding-top: 5px;
+      }
+
+      .open-btn-container span {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        margin-top: 5px;
+        text-transform: uppercase;
+      }
+
+      /* Kelas animasi bila butang ditekan */
+      .is-open .gate-left {
+        transform: translateX(-100%);
+      }
+      .is-open .gate-right {
+        transform: translateX(100%);
+      }
+      .is-open .open-btn-container {
+        transform: scale(0);
+        opacity: 0;
+        animation: none;
+      }
+      .is-open {
+        pointer-events: none;
+      }
+
+      /* --- 2. HEADER & HERO (MOCKUP 2) --- */
+      .hero {
+        text-align: center;
+        padding: 60px 20px;
+        position: relative;
+        background-image: url("main-page.png");
+        background-size: cover;
+        background-position: center;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      .hero h3 {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .hero h1 {
+        font-family: var(--font-script);
+        font-size: 4rem;
+        margin: 10px 0;
+        color: #5d4037;
+      }
+      .hero .date-hero {
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-top: 20px;
+      }
+
+      /* --- 3. DETAILS (MOCKUP 3) --- */
+      .details-section {
+        text-align: center;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.6);
+        margin: 20px;
+        border-radius: 10px;
+      }
+      .bismillah {
+        font-family: var(--font-script);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      .couple-formal {
+        font-family: "Cinzel", serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 20px 0;
+        text-transform: uppercase;
+        color: #5d4037;
+      }
+      .info-box {
+        margin-top: 30px;
+      }
+      .info-label {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-top: 15px;
+      }
+      .btn-outline {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        transition: 0.3s;
+      }
+      .btn-outline:hover {
+        background-color: var(--text-color);
+        color: #fff;
+      }
+
+      /* --- 4. ITINERARY (MOCKUP 4) --- */
+      .itinerary {
+        background-color: #ececd9;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .timeline-item {
+        margin-bottom: 20px;
+      }
+      .timeline-time {
+        font-weight: bold;
+      }
+      .doa-section {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin: 40px 20px;
+        font-style: italic;
+      }
+      .hashtag {
+        font-family: serif;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+      }
+
+      /* --- 5. COUNTDOWN & GALLERY (MOCKUP 5) --- */
+      .countdown-container {
+        background-color: #fbf1df;
+        padding: 30px 10px;
+        text-align: center;
+      }
+      .timer-flex {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 15px;
+      }
+      .time-box {
+        display: flex;
+        flex-direction: column;
+      }
+      .time-val {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .time-label {
+        font-size: 0.7rem;
+      }
+      .gallery-img {
+        /* Replaced single image with a slider/gallery */
+      }
+
+      /* single image replacement for gallery */
+      .single-image {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .single-image img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* --- 6. RSVP & WISHES (MOCKUP 6) --- */
+      .rsvp-section {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .stats-flex {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        margin-bottom: 30px;
+      }
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 300;
+      }
+      .wishes-scroll {
+        height: 200px;
+        overflow-y: auto;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+      }
+      .wish-item {
+        margin-bottom: 15px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 10px;
+      }
+      .wish-name {
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+      .wish-text {
+        font-style: italic;
+        font-size: 0.85rem;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      /* --- FOOTER NAV (FIXED) --- */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        background-color: #9ca888;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 1000;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .nav-item {
+        color: white;
+        font-size: 1.2rem;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer; /* Tambah cursor pointer */
+      }
+      .footer-credit {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.7rem;
+        opacity: 0.6;
+      }
+      /* --- RSVP MODAL STYLES --- */
+      .modal-overlay {
+        display: none; /* Tersembunyi secara default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); /* Gelap di belakang */
+        z-index: 11000; /* Lebih tinggi dari semua element */
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background-color: #fff;
+        width: 100%;
+        max-width: 400px;
+        padding: 30px;
+        border-radius: 15px;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.4s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #888;
+      }
+
+      .modal-content h2 {
+        font-family: var(--font-script);
+        color: var(--text-color);
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      .modal-subtitle {
+        text-align: center;
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+        color: #666;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--text-color);
+      }
+
+      /* Gaya Form hanya untuk input, select, dan textarea */
+      .rsvp-form .form-group input,
+      .rsvp-form .form-group select,
+      .rsvp-form .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: var(--font-body);
+        background-color: #f9f9f9;
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .btn-submit:hover {
+        background-color: var(--text-color);
+      }
+
+      /* --- Tambahan untuk Fade-in Effect --- */
+      .fade-in-element {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+      }
+
+      .fade-in-element.fade-in-active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* --- Gaya Khusus Untuk Butang Di Dalam Modal Kontak --- */
+      .contact-btn {
+        display: block; /* Menjadikannya mengambil lebar penuh */
+        text-decoration: none;
+        padding: 12px;
+        background-color: #075e54;
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 10px; /* Tambah jarak dari teks di atas */
+        text-align: center;
+        font-size: 0.9rem; /* Saiz font yang sesuai */
+        line-height: 1.2; /* Ketinggian baris untuk ikon dan teks */
+      }
+
+      .contact-btn i {
+        margin-right: 8px; /* Jarak antara ikon dan teks */
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="bg-music" loop>
+      <source src="song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <div id="opening-screen">
+      <div class="gate-panel gate-left"></div>
+      <div class="gate-panel gate-right"></div>
+
+      <div class="open-btn-container" onclick="openInvitation()">
+        <h1>Hawa<br />&<br />Najmuddin</h1>
+        <span>BUKA</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="hero fade-in-element" style="height: 100vh">
+        <h3>Majlis Pertunangan</h3>
+        <h1>
+          Hawa <br />
+          & <br />
+          Najmuddin
+        </h1>
+        <div class="date-hero">Sabtu • 4.4.26</div>
+      </section>
+
+      <section class="details-section fade-in-element">
+        <div class="bismillah">Assalamualaikum W.B.T</div>
+
+        <p>
+          Dengan penuh kesyukuran, kami mempersilakan<br />Dato' | Datin | Tuan
+          | Puan | Encik | Cik<br />seisi keluarga hadir ke majlis pertunangan
+          anakanda kami
+        </p>
+        <br />
+
+        <div class="couple-formal">
+          Nur Hawa Izzatie<br />&<br />Muhammad Najmuddin Bin Amdan
+        </div>
+
+        <div class="info-box">
+          <div class="info-label">TEMPAT</div>
+          <p>Balik Pulau, Pulau Pinang</p>
+
+          <div class="info-label">TARIKH</div>
+          <p>Sabtu, 4 April 2026<br />16 Rejab 1440H</p>
+
+          <div class="info-label">WAKTU</div>
+          <p>2:00 Petang</p>
+        </div>
+
+        <a
+          href="javascript:void(0)"
+          class="btn-outline"
+          onclick="openSaveDateModal()"
+          >Simpan Tarikh</a
+        >
+      </section>
+
+      <section class="itinerary fade-in-element">
+        <h2>ATUR CARA MAJLIS</h2>
+        <br />
+        <div class="timeline-item">
+          <div class="timeline-time">11:30 Pagi</div>
+          <div>Kehadiran Tetamu</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">12:30 Tengah Hari</div>
+          <div>Ketibaan Pengantin</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">1:30 Petang</div>
+          <div>Makan Beradab</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">5:00 Petang</div>
+          <div>Majlis Berakhir</div>
+        </div>
+
+        <div class="doa-section">
+          "Ya Allah Ya Rahman Ya Rahim, berkatilah majlis pertunangan ini.
+          Limpahkanlah baraqah dan rahmatMu kepada kedua pasangan ini..."
+        </div>
+        <div class="hashtag">#HawaFoundHerNajm</div>
+      </section>
+
+      <section class="countdown-container fade-in-element">
+        <!-- single image (replaced gallery) -->
+        <div class="single-image">
+          <img
+            src="nunha.png"
+            alt="Nunha"
+            sizes="(max-width:480px) 100vw, 480px"
+          />
+        </div>
+        <h3 style="margin-bottom: 10px">MENGHITUNG HARI</h3>
+        <div class="timer-flex" id="countdown">
+          <div class="time-box">
+            <span class="time-val" id="days">00</span
+            ><span class="time-label">Hari</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="hours">00</span
+            ><span class="time-label">Jam</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="minutes">00</span
+            ><span class="time-label">Minit</span>
+          </div>
+          <div class="time-box">
+            <span class="time-val" id="seconds">00</span
+            ><span class="time-label">Saat</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="rsvp-section fade-in-element">
+        <h3>UCAPAN</h3>
+        <div class="wishes-scroll" id="wishes-container">
+          <div style="text-align: center; padding: 20px; color: #666">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p style="font-size: 0.8rem; margin-top: 10px">
+              Memuatkan ucapan...
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-credit">
+        Direka oleh<br /><strong>mnajmuddean</strong>
+      </div>
+    </div>
+
+    <div id="rsvpModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeRSVPModal()">&times;</span>
+        <h2>Sahkan Kehadiran</h2>
+        <p class="modal-subtitle">Sila isi maklumat di bawah</p>
+
+        <form class="rsvp-form" name="submit-to-google-sheet">
+          <div class="form-group">
+            <label>Nama</label>
+            <input type="text" name="Nama" placeholder="Nama Penuh" required />
+          </div>
+
+          <div class="form-group">
+            <label>Nombor Telefon</label>
+            <input
+              type="tel"
+              name="No Telefon"
+              placeholder="012-3456789"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Jumlah Kehadiran</label>
+            <select name="Jumlah Kehadiran" required>
+              <option value="1">1 Orang</option>
+              <option value="2">2 Orang</option>
+              <option value="3">3 Orang</option>
+              <option value="4">4 Orang</option>
+              <option value="5">5 Orang</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Ucapan</label>
+            <textarea
+              name="Ucapan"
+              rows="3"
+              placeholder="Ucapan untuk pasangan..."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-hantar">
+            Hantar RSVP
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="locationModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeLocationModal()">×</span>
+        <h2>Lokasi Majlis</h2>
+        <p class="modal-subtitle">Balik Pulau, Pulau Pinang</p>
+
+        <div
+          style="
+            height: 150px;
+            background-color: #eee;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #555;
+            border: 1px solid #ddd;
+          "
+        >
+          [Placeholder Peta Akan Dipaparkan Di Sini]
+        </div>
+
+        <div
+          class="btn-group-full"
+          style="display: flex; flex-direction: column; gap: 10px"
+        >
+          <a
+            href="https://ul.waze.com/ul?venue_id=65667125.656671251.2343909&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
+            target="_blank"
+            class="btn-submit"
+            style="
+              text-align: center;
+              background-color: #3b82f6;
+              color: white;
+              padding: 10px 0;
+              text-decoration: none;
+            "
+          >
+            <i class="fab fa-waze"></i> Buka dengan Waze
+          </a>
+          <a
+            href="https://maps.app.goo.gl/FnPdjE8TsGNexY3z7"
+            target="_blank"
+            class="btn-submit"
+            style="
+              text-align: center;
+              background-color: #dc2626;
+              color: white;
+              padding: 10px 0;
+              text-decoration: none;
+            "
+          >
+            <i class="fas fa-map-marked-alt"></i> Buka dengan Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="contactModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeContactModal()">×</span>
+        <h2>Hubungi Kami</h2>
+        <p class="modal-subtitle">Sila hubungi mana-mana yang berkenaan</p>
+
+        <div
+          style="
+            text-align: left;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+          "
+        >
+          <div class="info-label" style="font-size: 0.9rem; margin-top: 0">
+            Pihak Perempuan (Hawa)
+          </div>
+          <p style="margin-top: 5px">
+            <i class="fas fa-user-circle"></i> En. Rosli (Bapa)
+          </p>
+          <a
+            href="https://api.whatsapp.com/send?phone=601112408743"
+            class="contact-btn"
+          >
+            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1240 8743
+          </a>
+          <p style="margin-top: 5px">
+            <i class="fas fa-user-circle"></i> Cik Siti (Ibu)
+          </p>
+          <a
+            href="https://api.whatsapp.com/send?phone=601112408743"
+            class="contact-btn"
+          >
+            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1240 8743
+          </a>
+        </div>
+
+        <div
+          style="
+            text-align: left;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+          "
+        >
+          <div class="info-label" style="font-size: 0.9rem; margin-top: 0">
+            Pihak Lelaki (Najmuddin)
+          </div>
+          <p style="margin-top: 5px">
+            <i class="fas fa-user-circle"></i> En. Amdan (Bapa)
+          </p>
+          <a
+            href="https://api.whatsapp.com/send?phone=601110944393"
+            class="contact-btn"
+            style="background-color: #075e54"
+          >
+            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1094 4393
+          </a>
+          <p style="margin-top: 5px">
+            <i class="fas fa-user-circle"></i> Cik Zaliza (Ibu)
+          </p>
+          <a
+            href="https://api.whatsapp.com/send?phone=601110944393"
+            class="contact-btn"
+            style="background-color: #075e54"
+          >
+            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1094 4393
+          </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px; opacity: 0.7">
+          <p style="font-size: 0.75rem; font-weight: bold">
+            JIKA ADA SEBARANG PERTANYAAN
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="saveDateModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeSaveDateModal()">×</span>
+        <h2>Simpan Tarikh</h2>
+        <p class="modal-subtitle">
+          Tambahkan majlis pertunangan ini ke kalendar anda.
+        </p>
+
+        <div
+          class="btn-group-full"
+          style="display: flex; flex-direction: column; gap: 10px"
+        >
+          <a
+            href="#"
+            id="btn-google-calendar"
+            target="_blank"
+            class="btn-submit"
+            style="
+              text-align: center;
+              background-color: #4285f4;
+              color: white;
+              padding: 10px 0;
+              text-decoration: none;
+            "
+          >
+            <i class="fab fa-google"></i> Google Calendar
+          </a>
+          <a
+            href="#"
+            id="btn-apple-calendar"
+            target="_blank"
+            class="btn-submit"
+            style="
+              text-align: center;
+              background-color: #555;
+              color: white;
+              padding: 10px 0;
+              text-decoration: none;
+            "
+          >
+            <i class="fab fa-apple"></i> Apple Calendar / Outlook (iCal)
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <a
+        href="javascript:void(0)"
+        class="nav-item"
+        onclick="openContactModal()"
+      >
+        <i class="fas fa-phone-alt"></i>
+      </a>
+
+      <a href="javascript:void(0)" class="nav-item" onclick="toggleMusic()">
+        <i class="far fa-play-circle" id="music-icon"></i>
+      </a>
+
+      <a
+        href="javascript:void(0)"
+        class="nav-item"
+        onclick="openLocationModal()"
+      >
+        <i class="fas fa-map-marker-alt"></i>
+      </a>
+      <!-- <a href="#" class="nav-item"><i class="fas fa-gift"></i></a> -->
+      <a href="javascript:void(0)" class="nav-item" onclick="openRSVPModal()">
+        <i class="far fa-envelope"></i>
+      </a>
+    </nav>
+
+    <script>
+      // --- LOGIK MUZIK ---
+      const music = document.getElementById("bg-music");
+      const musicIcon = document.getElementById("music-icon");
+
+      function toggleMusic() {
+        if (music.paused) {
+          music.play();
+          musicIcon.classList.remove("fa-play-circle");
+          musicIcon.classList.add("fa-pause-circle");
+        } else {
+          music.pause();
+          musicIcon.classList.remove("fa-pause-circle");
+          musicIcon.classList.add("fa-play-circle");
+        }
+      }
+
+      // 1. Fungsi Buka Pintu
+      function openInvitation() {
+        document.getElementById("opening-screen").classList.add("is-open");
+
+        // Trigger Play Muzik
+        music
+          .play()
+          .then(() => {
+            // Tukar ikon kepada Pause bila lagu berjaya dimainkan
+            musicIcon.classList.remove("fa-play-circle");
+            musicIcon.classList.add("fa-pause-circle");
+          })
+          .catch((error) => {
+            console.log("Autoplay prevented by browser:", error);
+          });
+      }
+
+      // 2. Fungsi Countdown Timer
+      const weddingDate = new Date("Apr 04, 2026 14:00:00").getTime();
+
+      const timer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+
+        if (distance < 0) {
+          clearInterval(timer);
+          document.getElementById("countdown").innerHTML =
+            "Majlis Sedang Berlangsung";
+        }
+      }, 1000);
+
+      // --- 3. RSVP POPUP LOGIC & GOOGLE SHEETS ---
+      const modal = document.getElementById("rsvpModal");
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbyCREXVHJCJp_lcPltRh5tTJlSWvS-5mPCr5TE2RPRJhelcR2WStSfPYRzgj7ZNHZQ/exec";
+      const form = document.forms["submit-to-google-sheet"];
+      const btnHantar = document.getElementById("btn-hantar");
+
+      function openRSVPModal() {
+        modal.style.display = "flex";
+      }
+
+      function closeRSVPModal() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // form.addEventListener("submit", (e) => {
+      //   e.preventDefault();
+
+      //   // Ubah butang jadi loading
+      //   btnHantar.innerHTML =
+      //     '<i class="fas fa-spinner fa-spin"></i> Sedang Menghantar...';
+      //   btnHantar.disabled = true;
+
+      //   fetch(scriptURL, { method: "POST", body: new FormData(form) })
+      //     .then((response) => {
+      //       // Reset form dan butang
+      //       btnHantar.innerHTML = "Hantar RSVP";
+      //       btnHantar.disabled = false;
+      //       form.reset();
+
+      //       // Tutup modal dan tunjuk alert
+      //       closeRSVPModal();
+      //       alert(
+      //         "Alhamdulillah! Kehadiran anda telah direkodkan. Terima kasih."
+      //       );
+
+      //       // (Optional) Refresh page atau update UI jika perlu
+      //       // location.reload();
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error!", error.message);
+      //       btnHantar.innerHTML = "Cuba Lagi";
+      //       btnHantar.disabled = false;
+      //       alert("Maaf, ada masalah teknikal. Sila cuba sebentar lagi.");
+      //     });
+      // });
+
+      // --- 4. FUNGSI TARIK UCAPAN DARI GOOGLE SHEETS ---
+      function loadWishes() {
+        const container = document.getElementById("wishes-container");
+
+        // Guna scriptURL yang sama seperti form RSVP
+        fetch(scriptURL)
+          .then((response) => response.json())
+          .then((response) => {
+            if (response.result === "success") {
+              const wishes = response.data;
+
+              // Kosongkan container (buang spinner loading)
+              container.innerHTML = "";
+
+              if (wishes.length === 0) {
+                container.innerHTML =
+                  '<div style="text-align:center; padding:20px;">Belum ada ucapan. Jadilah yang pertama!</div>';
+              } else {
+                // Loop setiap ucapan dan masukkan ke HTML
+                wishes.forEach((wish) => {
+                  // Escape HTML untuk elak XSS (security)
+                  const safeName = wish.nama
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+                  const safeWish = wish.ucapan
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                  const div = document.createElement("div");
+                  div.className = "wish-item";
+                  div.innerHTML = `
+              <div class="wish-text">"${safeWish}"</div>
+              <div class="wish-name">- ${safeName}</div>
+            `;
+                  container.appendChild(div);
+                });
+              }
+            }
+          })
+          .catch((error) => {
+            console.error("Error loading wishes:", error);
+            container.innerHTML =
+              '<div style="text-align:center; color:red; font-size:0.8rem;">Gagal memuatkan ucapan.</div>';
+          });
+      }
+
+      // Panggil fungsi ini sebaik sahaja page loading
+      window.addEventListener("load", loadWishes);
+
+      // UPDATE TAMBAHAN:
+      // Ubah sedikit code form submit tadi supaya lepas hantar, dia refresh list ucapan
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        btnHantar.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Sedang Menghantar...';
+        btnHantar.disabled = true;
+
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            btnHantar.innerHTML = "Hantar RSVP";
+            btnHantar.disabled = false;
+            form.reset();
+            closeRSVPModal();
+            alert("Terima kasih atas ucapan anda!");
+
+            // RELOAD UCAPAN SECARA AUTOMATIK
+            // Letak spinner balik
+            document.getElementById("wishes-container").innerHTML = `
+        <div style="text-align:center; padding:20px; color:#666;">
+          <i class="fas fa-spinner fa-spin fa-2x"></i>
+          <p>Mengemaskini ucapan...</p>
+        </div>`;
+
+            // Tunggu 1 saat (sebab Google Sheet lambat sikit update) baru reload
+            setTimeout(loadWishes, 1500);
+          })
+          .catch((error) => {
+            btnHantar.innerHTML = "Cuba Lagi";
+            btnHantar.disabled = false;
+            alert("Error!");
+          });
+      });
+
+      // Gallery slider removed — single image used instead.
+      // Existing slider initialization and related handlers have been removed.
+
+      // --- LOGIK POPUP LOKASI ---
+      const locationModal = document.getElementById("locationModal");
+
+      function openLocationModal() {
+        locationModal.style.display = "flex";
+      }
+
+      function closeLocationModal() {
+        locationModal.style.display = "none";
+      }
+
+      // Tambah fungsi tutup modal apabila klik di luar modal
+      window.addEventListener("click", function (event) {
+        if (event.target == locationModal) {
+          locationModal.style.display = "none";
+        }
+        // Tidak mengganggu fungsi sedia ada untuk RSVP modal
+        // if (event.target == modal) { modal.style.display = "none"; }
+      });
+
+      // Letakkan kod ini di akhir bahagian <script>, selepas initGallerySlider()
+
+      // --- 7. FUNGSI FADE-IN PADA SCROLL (Intersection Observer) ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const fadeElements = document.querySelectorAll(".fade-in-element");
+
+        const observerOptions = {
+          root: null, // Menggunakan viewport sebagai root
+          rootMargin: "0px",
+          threshold: 0.5, // Cetus apabila 10% elemen kelihatan
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Tambah kelas untuk mencetuskan transisi CSS
+              entry.target.classList.add("fade-in-active");
+              // Berhenti memerhati selepas aktif
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        fadeElements.forEach((element) => {
+          // Skrin pembuka (opening screen) akan diuruskan oleh fungsi 'openInvitation'
+          // Tetapi kita perlu pastikan elemen pertama (hero) tidak terkesan oleh 'observer'
+          // jika kita mahu ia muncul sebaik sahaja pintu dibuka.
+          // Dalam kes ini, biarkan observer menguruskan semua, kecuali #opening-screen
+          observer.observe(element);
+        });
+
+        // Untuk memastikan skrin hero muncul sebaik sahaja pintu dibuka,
+        // kita akan mencetuskannya secara manual selepas animasi pintu tamat (1s)
+
+        const heroSection = document.querySelector(".hero");
+        const openBtnContainer = document.querySelector(".open-btn-container");
+
+        openBtnContainer.addEventListener("click", () => {
+          // Selepas 1 saat, tetapkan elemen Hero sebagai 'fade-in-active'
+          setTimeout(() => {
+            if (heroSection) {
+              heroSection.classList.add("fade-in-active");
+              // Berhenti memerhati Hero agar tidak mencetus 2 kali
+              observer.unobserve(heroSection);
+            }
+          }, 1000);
+        });
+
+        // Walau bagaimanapun, kerana elemen hero adalah skrin pertama, kita boleh
+        // hanya biarkan Intersection Observer mengurusnya. Ia akan muncul serta-merta
+        // selepas skrin 'gate' hilang. Untuk memastikan semua berfungsi,
+        // kita biarkan logik observer sedia ada.
+
+        // KECUALI: Saya perasan section hero sudah set 'height: 100vh'.
+        // Jadi, ia akan kelihatan sepenuhnya. Biar Intersection Observer urus.
+      });
+
+      // --- LOGIK POPUP KONTAK BAHARU ---
+      const contactModal = document.getElementById("contactModal");
+
+      function openContactModal() {
+        contactModal.style.display = "flex";
+      }
+
+      function closeContactModal() {
+        contactModal.style.display = "none";
+      }
+
+      // Tambah fungsi tutup modal apabila klik di luar modal (tambahan)
+      window.addEventListener("click", function (event) {
+        if (event.target == contactModal) {
+          contactModal.style.display = "none";
+        }
+      });
+
+      // --- LOGIK POPUP SIMPAN TARIKH BAHARU ---
+      const saveDateModal = document.getElementById("saveDateModal");
+
+      // Maklumat Acara (Guna maklumat dari seksyen details)
+      const eventTitle = "Majlis Pertunangan Hawa & Najmuddin";
+      const eventLocation = "Balik Pulau, Pulau Pinang";
+      const eventDetails =
+        "Dengan penuh kesyukuran, kami mempersilakan kehadiran Dato' | Datin | Tuan | Puan | Encik | Cik seisi keluarga ke majlis pertunangan kami.";
+      const eventStartDate = new Date("April 04, 2026 14:00:00"); // 2:00 Petang (Mula)
+      const eventEndDate = new Date("April 04, 2026 17:00:00"); // 5:00 Petang (Akhir - Anggaran)
+
+      // Fungsi untuk format tarikh ke string ISO (YYYYMMDDTHHMMSS)
+      function toISOString(date) {
+        // Mendapatkan komponen tarikh
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+
+        // Format: YYYYMMDDTHHMMSS
+        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+      }
+
+      function generateCalendarLinks() {
+        const start = toISOString(eventStartDate);
+        const end = toISOString(eventEndDate);
+        const title = encodeURIComponent(eventTitle);
+        const description = encodeURIComponent(eventDetails);
+        const location = encodeURIComponent(eventLocation);
+
+        // 1. Google Calendar Link
+        const googleLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${description}&location=${location}&sf=true&output=xml`;
+        document.getElementById("btn-google-calendar").href = googleLink;
+
+        // 2. iCalendar (Apple/Outlook) Link - Pautan ini akan menjana fail .ics
+        // Perlu guna Google Search API untuk menjana pautan .ics
+        // Kerana ini adalah tugasan pengubahsuaian HTML/JS tempatan, saya akan gunakan
+        // pautan yang mudah yang menjana .ics, tetapi memerlukan server untuk benar-benar sempurna.
+        // Untuk tujuan demonstrasi dan kemudahan, saya akan biarkan `href` sebagai #
+        // atau boleh gunakan perkhidmatan pihak ketiga jika ada (tapi elak guna perkhidmatan luar).
+        // Untuk tujuan ini, kita akan guna pautan iCal asas.
+        // Kerana ini adalah fail lokal, penjanaan .ics memerlukan Blob/Server Side.
+        // Untuk mematuhi keperluan tanpa server/backend, kita biarkan pautan ini untuk
+        // tujuan simulasi (lazimnya fail .ics akan dijana di backend)
+        // Kita akan guna format asas `webcal://` yang disokong oleh Apple/Outlook
+        const appleLink = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//Hawa%20%26%20Najmuddin//NONSGML%20v1.0//EN%0ABEGIN:VEVENT%0AUID:hawanajmuddin%0ADTSTART:${start}%0ADTEND:${end}%0ASUMMARY:${title}%0ALOCATION:${location}%0ADESCRIPTION:${description}%0AEND:VEVENT%0AEND:VCALENDAR`;
+        document.getElementById("btn-apple-calendar").href = appleLink;
+      }
+
+      function openSaveDateModal() {
+        generateCalendarLinks(); // Pastikan pautan kalendar dijana setiap kali modal dibuka
+        saveDateModal.style.display = "flex";
+      }
+
+      function closeSaveDateModal() {
+        saveDateModal.style.display = "none";
+      }
+
+      // Tambah fungsi tutup modal apabila klik di luar modal (untuk modal baharu)
+      window.addEventListener("click", function (event) {
+        if (event.target == saveDateModal) {
+          saveDateModal.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
