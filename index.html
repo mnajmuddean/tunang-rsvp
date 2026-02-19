@@ -3,28 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#800020" />
     <title>Majlis Pertunangan: Hawa & Najmuddin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      media="print" onload="this.media='all'"
     />
 
     <style>
       /* --- CSS VARIABLES & RESET --- */
       :root {
-        --bg-color: #f4f4ec; /* Cream background */
-        --text-color: #5d4037; /* Dark Brown text */
-        --accent-color: #aab593; /* Olive Green */
+        --bg-color: #fdf8f8;
+        --text-color: #3d1118;
+        --accent-color: #800020;
+        --accent-light: #f5e6e8;
         --font-script: "Great Vibes", cursive;
         --font-body: "Montserrat", sans-serif;
+        --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+        --shadow-btn: 0 4px 15px rgba(128, 0, 32, 0.3);
       }
 
       * {
@@ -34,40 +38,46 @@
       }
 
       body {
-        background-color: #ddd;
+        background-color: #eadddd;
         font-family: var(--font-body);
         color: var(--text-color);
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
 
-      /* Bekas Utama (Mobile View Container) */
+      /* --- LAYOUT CONTAINERS --- */
       .container {
         max-width: 480px;
         margin: 0 auto;
         background-color: var(--bg-color);
         min-height: 100vh;
         position: relative;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        padding-bottom: 80px; /* Ruang untuk nav bawah */
-        background-image: url("https://img.freepik.com/free-vector/watercolor-nature-background_23-2149069443.jpg"); /* Placeholder watercolor bg */
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        padding-bottom: 90px; /* Space for bottom nav */
         background-size: cover;
+        background-attachment: fixed;
         background-blend-mode: overlay;
       }
 
-      /* --- 1. OPENING GATES (MOCKUP 1) --- */
+      section {
+        padding: 60px 25px;
+        position: relative;
+      }
+
+      /* --- 1. OPENING GATES --- */
       #opening-screen {
         position: fixed;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
-        max-width: 480px; /* Match .container max-width */
+        max-width: 480px;
         height: 100vh;
         z-index: 9999;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: all 1s ease-in-out;
+        transition: visibility 1s, opacity 1s linear;
       }
 
       .gate-panel {
@@ -76,44 +86,25 @@
         width: 50%;
         height: 100%;
         background-image: url("first-page.webp");
+        background-color: #fff;
         background-size: cover;
-        transition: transform 1s ease-in-out;
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+        transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
       }
 
-      .gate-left {
-        left: 0;
-        border-right: 1px solid #ddd;
-        background-position: left center;
-      }
+      .gate-left { left: 0; border-right: 1px solid #eadddd; background-position: left center; }
+      .gate-right { right: 0; border-left: 1px solid #eadddd; background-position: right center; }
 
-      .gate-right {
-        right: 0;
-        border-left: 1px solid #ddd;
-        background-position: right center;
-      }
-
-      /* Animasi Denyut (Pulse) */
       @keyframes pulse-animation {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(166, 168, 136, 0.7);
-        }
-        50% {
-          transform: scale(1.1);
-          box-shadow: 0 0 20px 10px rgba(166, 168, 136, 0);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 0 0 0 rgba(166, 168, 136, 0);
-        }
+        0% { box-shadow: 0 0 0 0 rgba(128, 0, 32, 0.6); }
+        70% { box-shadow: 0 0 0 20px rgba(128, 0, 32, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(128, 0, 32, 0); }
       }
 
       .open-btn-container {
         position: relative;
         z-index: 10000;
-        background-color: #e8e8d8;
-        /* KEMAS KINI SAIZ */
+        background-color: var(--accent-light);
         width: 140px;
         height: 140px;
         border-radius: 50%;
@@ -124,224 +115,294 @@
         cursor: pointer;
         animation: pulse-animation 2s infinite ease-in-out;
         transition: transform 0.5s, opacity 0.5s;
+        box-shadow: var(--shadow-soft);
       }
 
       .open-btn-container h1 {
         font-family: var(--font-script);
-        /* KEMAS KINI FONT SIZE */
-        font-size: 1.7rem;
+        font-size: 1.8rem;
         margin: 0;
-        line-height: 1.2;
+        line-height: 1.1;
         text-align: center;
-        /* Laraskan padding untuk pusat menegak selepas saiz fon berubah */
-        padding-top: 5px;
+        color: var(--accent-color);
       }
 
       .open-btn-container span {
         font-size: 0.7rem;
         letter-spacing: 2px;
-        margin-top: 5px;
+        margin-top: 8px;
+        font-weight: 600;
         text-transform: uppercase;
       }
 
-      /* Kelas animasi bila butang ditekan */
-      .is-open .gate-left {
-        transform: translateX(-100%);
-      }
-      .is-open .gate-right {
-        transform: translateX(100%);
-      }
-      .is-open .open-btn-container {
-        transform: scale(0);
-        opacity: 0;
-        animation: none;
-      }
-      .is-open {
-        pointer-events: none;
-      }
+      .is-open .gate-left { transform: translateX(-100%); }
+      .is-open .gate-right { transform: translateX(100%); }
+      .is-open .open-btn-container { transform: scale(0); opacity: 0; animation: none; }
+      .is-open { pointer-events: none; opacity: 0; visibility: hidden; transition-delay: 1s; }
 
-      /* --- 2. HEADER & HERO (MOCKUP 2) --- */
+      /* --- 2. HERO SECTION --- */
       .hero {
         text-align: center;
-        padding: 60px 20px;
-        position: relative;
-        background-image: url("main-page.webp");
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background-size: cover;
         background-position: center;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(253, 248, 248, 0.85); /* fallback */
       }
-      .hero h3 {
-        font-size: 0.8rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .hero h1 {
-        font-family: var(--font-script);
-        font-size: 4rem;
-        margin: 10px 0;
-        color: #5d4037;
-      }
-      .hero .date-hero {
-        font-weight: 600;
-        letter-spacing: 1px;
-        margin-top: 20px;
+      
+      .hero-content {
+        background: rgba(253, 248, 248, 0.85);
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-soft);
+        width: 90%;
+        backdrop-filter: blur(5px);
       }
 
-      /* --- 3. DETAILS (MOCKUP 3) --- */
+      .hero h3 {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        color: #555;
+      }
+
+      .hero h1 {
+        font-family: var(--font-script);
+        font-size: 4.5rem;
+        line-height: 1.1;
+        margin: 10px 0;
+        color: var(--accent-color);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+      }
+
+      .hero .date-hero {
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-top: 20px;
+        font-size: 1.1rem;
+      }
+
+      /* PRIMARY RSVP BUTTON (Visible at first glance) */
+      .btn-primary-rsvp {
+        margin-top: 30px;
+        padding: 15px 35px;
+        background-color: var(--accent-color);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: var(--shadow-btn);
+        animation: pulse-animation 2.5s infinite ease-in-out;
+        transition: transform 0.2s;
+      }
+      
+      .btn-primary-rsvp:active { transform: scale(0.95); }
+
+      /* --- 3. DETAILS SECTION --- */
       .details-section {
         text-align: center;
-        padding: 40px 20px;
-        background: rgba(255, 255, 255, 0.6);
-        margin: 20px;
-        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        margin: 0 20px 40px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-soft);
       }
+
       .bismillah {
         font-family: var(--font-script);
-        font-size: 1.5rem;
-        margin-bottom: 20px;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        color: var(--accent-color);
       }
+
+      .details-section p { line-height: 1.8; font-size: 0.95rem; }
+
       .couple-formal {
         font-family: "Cinzel", serif;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         font-weight: bold;
-        margin: 20px 0;
+        margin: 30px 0;
+        line-height: 1.6;
         text-transform: uppercase;
-        color: #5d4037;
+        color: var(--accent-color);
       }
+
       .info-box {
-        margin-top: 30px;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--accent-light);
       }
+
       .info-label {
-        font-weight: bold;
+        font-weight: 700;
         text-transform: uppercase;
+        letter-spacing: 2px;
         font-size: 0.8rem;
-        margin-top: 15px;
+        margin: 20px 0 5px;
+        color: var(--accent-color);
       }
+
       .btn-outline {
         display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        border: 1px solid var(--text-color);
-        color: var(--text-color);
+        margin-top: 30px;
+        padding: 12px 25px;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
         text-decoration: none;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        transition: 0.3s;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
       }
+      
       .btn-outline:hover {
-        background-color: var(--text-color);
+        background-color: var(--accent-color);
         color: #fff;
       }
 
-      /* --- 4. ITINERARY (MOCKUP 4) --- */
+      /* --- 4. ITINERARY --- */
       .itinerary {
-        background-color: #ececd9;
+        background-color: var(--accent-light);
         text-align: center;
-        padding: 40px 20px;
+        border-radius: 40px 40px 0 0;
       }
-      .timeline-item {
-        margin-bottom: 20px;
-      }
-      .timeline-time {
-        font-weight: bold;
-      }
-      .doa-section {
-        font-size: 0.85rem;
-        line-height: 1.6;
-        margin: 40px 20px;
-        font-style: italic;
-      }
-      .hashtag {
-        font-family: serif;
+
+      .itinerary h2 {
         font-size: 1.2rem;
         letter-spacing: 2px;
+        margin-bottom: 30px;
       }
 
-      /* --- 5. COUNTDOWN & GALLERY (MOCKUP 5) --- */
+      .timeline-item {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed rgba(128, 0, 32, 0.2);
+      }
+      
+      .timeline-item:last-child { border-bottom: none; }
+
+      .timeline-time {
+        font-weight: 700;
+        color: var(--accent-color);
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+      }
+
+      .doa-section {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        margin: 50px 20px 30px;
+        font-style: italic;
+        color: #555;
+      }
+
+      .hashtag {
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        color: var(--accent-color);
+      }
+
+      /* --- 5. COUNTDOWN --- */
       .countdown-container {
-        background-color: #fbf1df;
-        padding: 30px 10px;
+        background-color: #fbeff0;
         text-align: center;
       }
-      .timer-flex {
-        display: flex;
-        justify-content: center;
-        gap: 60px;
-        margin-top: 15px;
-      }
-      .time-box {
-        display: flex;
-        flex-direction: column;
-      }
-      .time-val {
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-      .time-label {
-        font-size: 0.7rem;
-      }
-      .gallery-img {
-        /* Replaced single image with a slider/gallery */
-      }
 
-      /* single image replacement for gallery */
       .single-image {
-        border-radius: 10px;
+        border-radius: 15px;
         overflow: hidden;
+        margin-bottom: 30px;
+        box-shadow: var(--shadow-soft);
       }
 
       .single-image img {
         width: 100%;
-        height: 300px;
+        height: 350px;
         object-fit: cover;
         display: block;
       }
 
-      /* --- 6. RSVP & WISHES (MOCKUP 6) --- */
+      .timer-flex {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 25px;
+      }
+
+      .time-box {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        min-width: 70px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .time-val {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        line-height: 1;
+      }
+
+      .time-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        margin-top: 5px;
+        letter-spacing: 1px;
+        color: #666;
+      }
+
+      /* --- 6. RSVP & WISHES --- */
       .rsvp-section {
         text-align: center;
-        padding: 40px 20px;
       }
-      .stats-flex {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-        margin-bottom: 30px;
-      }
-      .stat-number {
-        font-size: 2rem;
-        font-weight: 300;
-      }
+
       .wishes-scroll {
-        height: 200px;
+        height: 250px;
         overflow-y: auto;
-        background: rgba(255, 255, 255, 0.3);
-        padding: 10px;
-        margin-bottom: 20px;
-        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        border: 1px solid #f0d8dc;
+        box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
       }
+
       .wish-item {
-        margin-bottom: 15px;
-        border-bottom: 1px dashed #ccc;
-        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px dashed #e8c5ca;
+        padding-bottom: 15px;
+        text-align: left;
       }
+
       .wish-name {
-        font-weight: bold;
+        font-weight: 700;
         font-size: 0.9rem;
+        color: var(--accent-color);
+        margin-top: 8px;
+        text-align: right;
       }
+
       .wish-text {
         font-style: italic;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #444;
       }
 
-      .btn-group {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-      }
-
-      /* --- FOOTER NAV (FIXED) --- */
+      /* --- FOOTER NAV --- */
       .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -349,227 +410,177 @@
         transform: translateX(-50%);
         width: 100%;
         max-width: 480px;
-        background-color: #9ca888;
-        height: 60px;
+        background-color: var(--accent-color);
+        height: 70px;
         display: flex;
         justify-content: space-around;
         align-items: center;
         z-index: 1000;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
       }
+
       .nav-item {
         color: white;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         text-decoration: none;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        cursor: pointer; /* Tambah cursor pointer */
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background-color 0.3s, transform 0.2s;
       }
+      
+      .nav-item:active { transform: scale(0.9); background-color: rgba(255,255,255,0.2); }
+
       .footer-credit {
         text-align: center;
-        padding: 20px;
-        font-size: 0.7rem;
+        padding: 30px 20px 40px;
+        font-size: 0.75rem;
         opacity: 0.6;
+        background-color: var(--bg-color);
       }
-      /* --- RSVP MODAL STYLES --- */
+
+      /* --- MODALS (GLOBAL CSS REFACTOR) --- */
       .modal-overlay {
-        display: none; /* Tersembunyi secara default */
+        display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6); /* Gelap di belakang */
-        z-index: 11000; /* Lebih tinggi dari semua element */
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+        z-index: 11000;
         justify-content: center;
         align-items: center;
         padding: 20px;
+        opacity: 0;
+        transition: opacity 0.3s;
       }
+
+      .modal-overlay.show { display: flex; opacity: 1; }
 
       .modal-content {
         background-color: #fff;
         width: 100%;
-        max-width: 400px;
-        padding: 30px;
-        border-radius: 15px;
+        max-width: 420px;
+        padding: 35px 25px;
+        border-radius: 20px;
         position: relative;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        animation: slideUp 0.4s ease;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(30px);
+        transition: transform 0.3s;
       }
 
-      @keyframes slideUp {
-        from {
-          transform: translateY(50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
+      .modal-overlay.show .modal-content { transform: translateY(0); }
 
       .close-btn {
         position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 1.5rem;
+        top: 15px; right: 20px;
+        font-size: 1.8rem;
         cursor: pointer;
-        color: #888;
+        color: #aaa;
+        transition: color 0.2s;
       }
+      
+      .close-btn:hover { color: var(--accent-color); }
 
-      .modal-content h2 {
+      .modal-title {
         font-family: var(--font-script);
-        color: var(--text-color);
-        font-size: 2rem;
+        color: var(--accent-color);
+        font-size: 2.2rem;
         text-align: center;
         margin-bottom: 5px;
       }
 
       .modal-subtitle {
         text-align: center;
-        font-size: 0.8rem;
-        margin-bottom: 20px;
+        font-size: 0.85rem;
+        margin-bottom: 25px;
         color: #666;
       }
 
-      .form-group {
-        margin-bottom: 15px;
+      /* Modal Forms & Buttons */
+      .form-group { margin-bottom: 18px; }
+      .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+      .form-group input, .form-group select, .form-group textarea {
+        width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem; background-color: #fafafa;
+      }
+      .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        outline: none; border-color: var(--accent-color); background-color: #fff;
       }
 
-      .form-group label {
-        display: block;
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: var(--text-color);
+      /* Generic Modal Buttons */
+      .btn-block {
+        display: block; width: 100%; padding: 14px; color: white; border: none; border-radius: 8px; font-weight: 600; text-align: center; cursor: pointer; transition: opacity 0.3s; text-decoration: none; font-size: 0.95rem; margin-bottom: 10px;
+      }
+      .btn-block i { margin-right: 8px; }
+      .btn-block:active { opacity: 0.8; }
+      
+      .bg-primary { background-color: var(--accent-color); }
+      .bg-whatsapp { background-color: #25D366; color: #fff;}
+      .bg-waze { background-color: #33ccff; color: #000; }
+      .bg-gmaps { background-color: #EA4335; }
+      .bg-gcal { background-color: #4285F4; }
+      .bg-apple { background-color: #000000; }
+
+      /* Modal Specifics */
+      .contact-block { padding: 15px 0; border-bottom: 1px solid #f0f0f0; margin-bottom: 10px; }
+      .contact-block:last-child { border-bottom: none; }
+      .contact-name { margin: 5px 0; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;}
+      
+      .map-placeholder {
+        height: 160px; background-color: #f5f5f5; border-radius: 10px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #888; border: 1px dashed #ccc;
       }
 
-      /* Gaya Form hanya untuk input, select, dan textarea */
-      .rsvp-form .form-group input,
-      .rsvp-form .form-group select,
-      .rsvp-form .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-family: var(--font-body);
-        background-color: #f9f9f9;
-      }
-
-      .btn-submit {
-        width: 100%;
-        padding: 12px;
-        background-color: var(--accent-color);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .btn-submit:hover {
-        background-color: var(--text-color);
-      }
-
-      /* --- Tambahan untuk Fade-in Effect --- */
-      .fade-in-element {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
-      }
-
-      .fade-in-element.fade-in-active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      /* --- Gaya Khusus Untuk Butang Di Dalam Modal Kontak --- */
-      .contact-btn {
-        display: block; /* Menjadikannya mengambil lebar penuh */
-        text-decoration: none;
-        padding: 12px;
-        background-color: #075e54;
-        color: white;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s;
-        margin-top: 10px; /* Tambah jarak dari teks di atas */
-        text-align: center;
-        font-size: 0.9rem; /* Saiz font yang sesuai */
-        line-height: 1.2; /* Ketinggian baris untuk ikon dan teks */
-      }
-
-      .contact-btn i {
-        margin-right: 8px; /* Jarak antara ikon dan teks */
-      }
+      /* Fade in animation classes */
+      .fade-in-element { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+      .fade-in-element.fade-in-active { opacity: 1; transform: translateY(0); }
     </style>
   </head>
   <body>
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
       <source src="song.mp3" type="audio/mpeg" />
-      Your browser does not support the audio element.
     </audio>
 
     <div id="opening-screen">
       <div class="gate-panel gate-left"></div>
       <div class="gate-panel gate-right"></div>
-
       <div class="open-btn-container" onclick="openInvitation()">
         <h1>Hawa<br />&<br />Najmuddin</h1>
-        <span>BUKA</span>
+        <span>Buka</span>
       </div>
     </div>
 
     <div class="container">
-      <section class="hero fade-in-element" style="height: 100vh">
-        <h3>Majlis Pertunangan</h3>
-        <h1>
-          Hawa <br />
-          & <br />
-          Najmuddin
-        </h1>
-        <div class="date-hero">Sabtu • 4.4.26</div>
+      <section class="hero fade-in-element">
+        <div class="hero-content">
+            <h3>Majlis Pertunangan</h3>
+            <h1>Hawa <br />& <br />Najmuddin</h1>
+            <div class="date-hero">Sabtu • 4.4.26</div>
+        </div>
       </section>
 
       <section class="details-section fade-in-element">
         <div class="bismillah">Assalamualaikum W.B.T</div>
-
-        <p>
-          Dengan penuh kesyukuran, kami mempersilakan<br />Dato' | Datin | Tuan
-          | Puan | Encik | Cik<br />seisi keluarga hadir ke majlis pertunangan
-          anakanda kami
-        </p>
-        <br />
-
-        <div class="couple-formal">
-          Nur Hawa Izzatie<br />&<br />Muhammad Najmuddin Bin Amdan
-        </div>
+        <p>Dengan penuh kesyukuran, kami mempersilakan<br />Dato' | Datin | Tuan | Puan | Encik | Cik<br />seisi keluarga hadir ke majlis pertunangan anakanda kami</p>
+        
+        <div class="couple-formal">Nur Hawa Izzatie<br />&<br />Muhammad Najmuddin Bin Amdan</div>
 
         <div class="info-box">
-          <div class="info-label">TEMPAT</div>
+          <div class="info-label">Tempat</div>
           <p>Balik Pulau, Pulau Pinang</p>
-
-          <div class="info-label">TARIKH</div>
+          <div class="info-label">Tarikh</div>
           <p>Sabtu, 4 April 2026<br />16 Rejab 1440H</p>
-
-          <div class="info-label">WAKTU</div>
+          <div class="info-label">Waktu</div>
           <p>2:00 Petang</p>
         </div>
 
-        <a
-          href="javascript:void(0)"
-          class="btn-outline"
-          onclick="openSaveDateModal()"
-          >Simpan Tarikh</a
-        >
+        <button class="btn-outline" onclick="openModal('saveDateModal')">Simpan Tarikh</button>
       </section>
 
       <section class="itinerary fade-in-element">
         <h2>ATUR CARA MAJLIS</h2>
-        <br />
         <div class="timeline-item">
           <div class="timeline-time">11:30 Pagi</div>
           <div>Kehadiran Tetamu</div>
@@ -595,74 +606,48 @@
       </section>
 
       <section class="countdown-container fade-in-element">
-        <!-- single image (replaced gallery) -->
         <div class="single-image">
-          <img
-            src="nunha.png"
-            alt="Nunha"
-            sizes="(max-width:480px) 100vw, 480px"
-          />
+          <img src="nunha.webp" alt="Nunha" loading="lazy" />
         </div>
-        <h3 style="margin-bottom: 10px">MENGHITUNG HARI</h3>
-        <div class="timer-flex" id="countdown">
-          <div class="time-box">
-            <span class="time-val" id="days">00</span
-            ><span class="time-label">Hari</span>
-          </div>
-          <div class="time-box">
-            <span class="time-val" id="hours">00</span
-            ><span class="time-label">Jam</span>
-          </div>
-          <div class="time-box">
-            <span class="time-val" id="minutes">00</span
-            ><span class="time-label">Minit</span>
-          </div>
-          <div class="time-box">
-            <span class="time-val" id="seconds">00</span
-            ><span class="time-label">Saat</span>
-          </div>
+        <h3>MENGHITUNG HARI</h3>
+        <div class="timer-flex" id="countdown-ui">
+          <div class="time-box"><span class="time-val" id="days">00</span><span class="time-label">Hari</span></div>
+          <div class="time-box"><span class="time-val" id="hours">00</span><span class="time-label">Jam</span></div>
+          <div class="time-box"><span class="time-val" id="minutes">00</span><span class="time-label">Minit</span></div>
+          <div class="time-box"><span class="time-val" id="seconds">00</span><span class="time-label">Saat</span></div>
         </div>
       </section>
 
       <section class="rsvp-section fade-in-element">
-        <h3>UCAPAN</h3>
+        <h2>UCAPAN</h2>
         <div class="wishes-scroll" id="wishes-container">
           <div style="text-align: center; padding: 20px; color: #666">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
-            <p style="font-size: 0.8rem; margin-top: 10px">
-              Memuatkan ucapan...
-            </p>
+            <p style="font-size: 0.8rem; margin-top: 10px">Memuatkan ucapan...</p>
           </div>
         </div>
+                    <button class="btn-primary-rsvp" onclick="openModal('rsvpModal')">Sahkan Kehadiran</button>
+
       </section>
 
-      <div class="footer-credit">
-        Direka oleh<br /><strong>mnajmuddean</strong>
-      </div>
+      <div class="footer-credit">Direka oleh<br /><strong>mnajmuddean</strong></div>
     </div>
 
-    <div id="rsvpModal" class="modal-overlay">
+    <div id="rsvpModal" class="modal-overlay" onclick="closeOnOutsideClick(event, 'rsvpModal')">
       <div class="modal-content">
-        <span class="close-btn" onclick="closeRSVPModal()">&times;</span>
-        <h2>Sahkan Kehadiran</h2>
+        <span class="close-btn" onclick="closeModal('rsvpModal')">&times;</span>
+        <h2 class="modal-title">Kehadiran</h2>
         <p class="modal-subtitle">Sila isi maklumat di bawah</p>
 
-        <form class="rsvp-form" name="submit-to-google-sheet">
+        <form class="rsvp-form" name="submit-to-google-sheet" id="rsvpForm">
           <div class="form-group">
             <label>Nama</label>
             <input type="text" name="Nama" placeholder="Nama Penuh" required />
           </div>
-
           <div class="form-group">
             <label>Nombor Telefon</label>
-            <input
-              type="tel"
-              name="No Telefon"
-              placeholder="012-3456789"
-              required
-            />
+            <input type="tel" name="No Telefon" placeholder="012-3456789" required />
           </div>
-
           <div class="form-group">
             <label>Jumlah Kehadiran</label>
             <select name="Jumlah Kehadiran" required>
@@ -673,593 +658,237 @@
               <option value="5">5 Orang</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Ucapan</label>
-            <textarea
-              name="Ucapan"
-              rows="3"
-              placeholder="Ucapan untuk pasangan..."
-            ></textarea>
+            <textarea name="Ucapan" rows="3" placeholder="Ucapan untuk pasangan..."></textarea>
           </div>
-
-          <button type="submit" class="btn-submit" id="btn-hantar">
-            Hantar RSVP
-          </button>
+          <button type="submit" class="btn-block bg-primary" id="btn-hantar">Hantar RSVP</button>
         </form>
       </div>
     </div>
 
-    <div id="locationModal" class="modal-overlay">
+    <div id="locationModal" class="modal-overlay" onclick="closeOnOutsideClick(event, 'locationModal')">
       <div class="modal-content">
-        <span class="close-btn" onclick="closeLocationModal()">×</span>
-        <h2>Lokasi Majlis</h2>
+        <span class="close-btn" onclick="closeModal('locationModal')">&times;</span>
+        <h2 class="modal-title">Lokasi</h2>
         <p class="modal-subtitle">Balik Pulau, Pulau Pinang</p>
-
-        <div
-          style="
-            height: 150px;
-            background-color: #eee;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            color: #555;
-            border: 1px solid #ddd;
-          "
-        >
-          [Placeholder Peta Akan Dipaparkan Di Sini]
-        </div>
-
-        <div
-          class="btn-group-full"
-          style="display: flex; flex-direction: column; gap: 10px"
-        >
-          <a
-            href="https://ul.waze.com/ul?venue_id=65667125.656671251.2343909&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
-            target="_blank"
-            class="btn-submit"
-            style="
-              text-align: center;
-              background-color: #3b82f6;
-              color: white;
-              padding: 10px 0;
-              text-decoration: none;
-            "
-          >
-            <i class="fab fa-waze"></i> Buka dengan Waze
-          </a>
-          <a
-            href="https://maps.app.goo.gl/FnPdjE8TsGNexY3z7"
-            target="_blank"
-            class="btn-submit"
-            style="
-              text-align: center;
-              background-color: #dc2626;
-              color: white;
-              padding: 10px 0;
-              text-decoration: none;
-            "
-          >
-            <i class="fas fa-map-marked-alt"></i> Buka dengan Google Maps
-          </a>
-        </div>
+        <div class="map-placeholder">[ Peta Akan Dipaparkan Di Sini ]</div>
+        <a href="https://ul.waze.com/ul?venue_id=65667125.656671251.2343909&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" class="btn-block bg-waze"><i class="fab fa-waze"></i> Buka dengan Waze</a>
+        <a href="https://maps.app.goo.gl/FnPdjE8TsGNexY3z7" target="_blank" class="btn-block bg-gmaps"><i class="fas fa-map-marked-alt"></i> Buka dengan Google Maps</a>
       </div>
     </div>
 
-    <div id="contactModal" class="modal-overlay">
+    <div id="contactModal" class="modal-overlay" onclick="closeOnOutsideClick(event, 'contactModal')">
       <div class="modal-content">
-        <span class="close-btn" onclick="closeContactModal()">×</span>
-        <h2>Hubungi Kami</h2>
+        <span class="close-btn" onclick="closeModal('contactModal')">&times;</span>
+        <h2 class="modal-title">Hubungi</h2>
         <p class="modal-subtitle">Sila hubungi mana-mana yang berkenaan</p>
 
-        <div
-          style="
-            text-align: left;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 15px;
-          "
-        >
-          <div class="info-label" style="font-size: 0.9rem; margin-top: 0">
-            Pihak Perempuan (Hawa)
-          </div>
-          <p style="margin-top: 5px">
-            <i class="fas fa-user-circle"></i> En. Rosli (Bapa)
-          </p>
-          <a
-            href="https://api.whatsapp.com/send?phone=601112408743"
-            class="contact-btn"
-          >
-            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1240 8743
-          </a>
-          <p style="margin-top: 5px">
-            <i class="fas fa-user-circle"></i> Cik Siti (Ibu)
-          </p>
-          <a
-            href="https://api.whatsapp.com/send?phone=601112408743"
-            class="contact-btn"
-          >
-            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1240 8743
-          </a>
+        <div class="contact-block">
+          <div class="info-label" style="margin-top:0;">Pihak Perempuan</div>
+          <p class="contact-name"><i class="fas fa-user-circle"></i> En. Rosli (Bapa)</p>
+          <a href="https://api.whatsapp.com/send?phone=601112408743" class="btn-block bg-whatsapp"><i class="fab fa-whatsapp"></i> +60 11-1240 8743</a>
+          <p class="contact-name" style="margin-top:10px;"><i class="fas fa-user-circle"></i> Cik Siti (Ibu)</p>
+          <a href="https://api.whatsapp.com/send?phone=601112408743" class="btn-block bg-whatsapp"><i class="fab fa-whatsapp"></i> +60 11-1240 8743</a>
         </div>
 
-        <div
-          style="
-            text-align: left;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 15px;
-          "
-        >
-          <div class="info-label" style="font-size: 0.9rem; margin-top: 0">
-            Pihak Lelaki (Najmuddin)
-          </div>
-          <p style="margin-top: 5px">
-            <i class="fas fa-user-circle"></i> En. Amdan (Bapa)
-          </p>
-          <a
-            href="https://api.whatsapp.com/send?phone=601110944393"
-            class="contact-btn"
-            style="background-color: #075e54"
-          >
-            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1094 4393
-          </a>
-          <p style="margin-top: 5px">
-            <i class="fas fa-user-circle"></i> Cik Zaliza (Ibu)
-          </p>
-          <a
-            href="https://api.whatsapp.com/send?phone=601110944393"
-            class="contact-btn"
-            style="background-color: #075e54"
-          >
-            <i class="fab fa-whatsapp"></i> Whatsapp: +60 11-1094 4393
-          </a>
-        </div>
-
-        <div style="text-align: center; margin-top: 25px; opacity: 0.7">
-          <p style="font-size: 0.75rem; font-weight: bold">
-            JIKA ADA SEBARANG PERTANYAAN
-          </p>
+        <div class="contact-block">
+          <div class="info-label" style="margin-top:0;">Pihak Lelaki</div>
+          <p class="contact-name"><i class="fas fa-user-circle"></i> En. Amdan (Bapa)</p>
+          <a href="https://api.whatsapp.com/send?phone=601110944393" class="btn-block bg-whatsapp"><i class="fab fa-whatsapp"></i> +60 11-1094 4393</a>
+          <p class="contact-name" style="margin-top:10px;"><i class="fas fa-user-circle"></i> Cik Zaliza (Ibu)</p>
+          <a href="https://api.whatsapp.com/send?phone=601110944393" class="btn-block bg-whatsapp"><i class="fab fa-whatsapp"></i> +60 11-1094 4393</a>
         </div>
       </div>
     </div>
 
-    <div id="saveDateModal" class="modal-overlay">
+    <div id="saveDateModal" class="modal-overlay" onclick="closeOnOutsideClick(event, 'saveDateModal')">
       <div class="modal-content">
-        <span class="close-btn" onclick="closeSaveDateModal()">×</span>
-        <h2>Simpan Tarikh</h2>
-        <p class="modal-subtitle">
-          Tambahkan majlis pertunangan ini ke kalendar anda.
-        </p>
-
-        <div
-          class="btn-group-full"
-          style="display: flex; flex-direction: column; gap: 10px"
-        >
-          <a
-            href="#"
-            id="btn-google-calendar"
-            target="_blank"
-            class="btn-submit"
-            style="
-              text-align: center;
-              background-color: #4285f4;
-              color: white;
-              padding: 10px 0;
-              text-decoration: none;
-            "
-          >
-            <i class="fab fa-google"></i> Google Calendar
-          </a>
-          <a
-            href="#"
-            id="btn-apple-calendar"
-            target="_blank"
-            class="btn-submit"
-            style="
-              text-align: center;
-              background-color: #555;
-              color: white;
-              padding: 10px 0;
-              text-decoration: none;
-            "
-          >
-            <i class="fab fa-apple"></i> Apple Calendar / Outlook (iCal)
-          </a>
-        </div>
+        <span class="close-btn" onclick="closeModal('saveDateModal')">&times;</span>
+        <h2 class="modal-title">Simpan</h2>
+        <p class="modal-subtitle">Tambahkan ke kalendar anda.</p>
+        <a href="#" id="btn-google-calendar" target="_blank" class="btn-block bg-gcal"><i class="fab fa-google"></i> Google Calendar</a>
+        <a href="#" id="btn-apple-calendar" target="_blank" class="btn-block bg-apple"><i class="fab fa-apple"></i> Apple / Outlook (iCal)</a>
       </div>
     </div>
 
     <nav class="bottom-nav">
-      <a
-        href="javascript:void(0)"
-        class="nav-item"
-        onclick="openContactModal()"
-      >
-        <i class="fas fa-phone-alt"></i>
-      </a>
-
-      <a href="javascript:void(0)" class="nav-item" onclick="toggleMusic()">
-        <i class="far fa-play-circle" id="music-icon"></i>
-      </a>
-
-      <a
-        href="javascript:void(0)"
-        class="nav-item"
-        onclick="openLocationModal()"
-      >
-        <i class="fas fa-map-marker-alt"></i>
-      </a>
-      <!-- <a href="#" class="nav-item"><i class="fas fa-gift"></i></a> -->
-      <a href="javascript:void(0)" class="nav-item" onclick="openRSVPModal()">
-        <i class="far fa-envelope"></i>
-      </a>
+      <a href="javascript:void(0)" class="nav-item" onclick="openModal('contactModal')"><i class="fas fa-phone-alt"></i></a>
+      <a href="javascript:void(0)" class="nav-item" onclick="toggleMusic()"><i class="far fa-play-circle" id="music-icon"></i></a>
+      <a href="javascript:void(0)" class="nav-item" onclick="openModal('locationModal')"><i class="fas fa-map-marker-alt"></i></a>
+      <a href="javascript:void(0)" class="nav-item" onclick="openModal('rsvpModal')"><i class="far fa-envelope"></i></a>
     </nav>
 
     <script>
-      // --- LOGIK MUZIK ---
+      // --- 1. Audio Logic ---
       const music = document.getElementById("bg-music");
       const musicIcon = document.getElementById("music-icon");
 
       function toggleMusic() {
         if (music.paused) {
           music.play();
-          musicIcon.classList.remove("fa-play-circle");
-          musicIcon.classList.add("fa-pause-circle");
+          musicIcon.className = "far fa-pause-circle";
         } else {
           music.pause();
-          musicIcon.classList.remove("fa-pause-circle");
-          musicIcon.classList.add("fa-play-circle");
+          musicIcon.className = "far fa-play-circle";
         }
       }
 
-      // 1. Fungsi Buka Pintu
+      // --- 2. Gate Opening ---
       function openInvitation() {
         document.getElementById("opening-screen").classList.add("is-open");
-
-        // Trigger Play Muzik
-        music
-          .play()
-          .then(() => {
-            // Tukar ikon kepada Pause bila lagu berjaya dimainkan
-            musicIcon.classList.remove("fa-play-circle");
-            musicIcon.classList.add("fa-pause-circle");
-          })
-          .catch((error) => {
-            console.log("Autoplay prevented by browser:", error);
-          });
+        music.play().then(() => {
+          musicIcon.className = "far fa-pause-circle";
+        }).catch(err => console.log("Autoplay prevented:", err));
+        
+        // Ensure hero animation fires immediately after opening
+        setTimeout(() => {
+          document.querySelector('.hero').classList.add('fade-in-active');
+        }, 300);
       }
 
-      // 2. Fungsi Countdown Timer
-      const weddingDate = new Date("Apr 04, 2026 14:00:00").getTime();
+      // --- 3. Global Modal Logic ---
+      function openModal(modalId) {
+        if(modalId === 'saveDateModal') generateCalendarLinks();
+        const modal = document.getElementById(modalId);
+        modal.classList.add('show');
+      }
 
-      const timer = setInterval(function () {
+      function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+      }
+
+      function closeOnOutsideClick(event, modalId) {
+        if (event.target.id === modalId) closeModal(modalId);
+      }
+
+      // --- 4. Countdown Timer (Optimized DOM Caching) ---
+      const weddingDate = new Date("Apr 04, 2026 14:00:00").getTime();
+      const elDays = document.getElementById("days");
+      const elHours = document.getElementById("hours");
+      const elMinutes = document.getElementById("minutes");
+      const elSeconds = document.getElementById("seconds");
+      const uiContainer = document.getElementById("countdown-ui");
+
+      const timer = setInterval(() => {
         const now = new Date().getTime();
         const distance = weddingDate - now;
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = days;
-        document.getElementById("hours").innerText = hours;
-        document.getElementById("minutes").innerText = minutes;
-        document.getElementById("seconds").innerText = seconds;
-
         if (distance < 0) {
           clearInterval(timer);
-          document.getElementById("countdown").innerHTML =
-            "Majlis Sedang Berlangsung";
+          uiContainer.innerHTML = "<h3 style='color:var(--accent-color);'>Majlis Sedang Berlangsung</h3>";
+          return;
         }
+
+        elDays.innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        elHours.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        elMinutes.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        elSeconds.innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
       }, 1000);
 
-      // --- 3. RSVP POPUP LOGIC & GOOGLE SHEETS ---
-      const modal = document.getElementById("rsvpModal");
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbyCREXVHJCJp_lcPltRh5tTJlSWvS-5mPCr5TE2RPRJhelcR2WStSfPYRzgj7ZNHZQ/exec";
-      const form = document.forms["submit-to-google-sheet"];
+      // --- 5. Google Sheets (RSVP & Wishes) ---
+      const scriptURL = "https://script.google.com/macros/s/AKfycbyCREXVHJCJp_lcPltRh5tTJlSWvS-5mPCr5TE2RPRJhelcR2WStSfPYRzgj7ZNHZQ/exec";
+      const form = document.getElementById("rsvpForm");
       const btnHantar = document.getElementById("btn-hantar");
+      const wishesContainer = document.getElementById("wishes-container");
 
-      function openRSVPModal() {
-        modal.style.display = "flex";
-      }
-
-      function closeRSVPModal() {
-        modal.style.display = "none";
-      }
-
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-
-      // form.addEventListener("submit", (e) => {
-      //   e.preventDefault();
-
-      //   // Ubah butang jadi loading
-      //   btnHantar.innerHTML =
-      //     '<i class="fas fa-spinner fa-spin"></i> Sedang Menghantar...';
-      //   btnHantar.disabled = true;
-
-      //   fetch(scriptURL, { method: "POST", body: new FormData(form) })
-      //     .then((response) => {
-      //       // Reset form dan butang
-      //       btnHantar.innerHTML = "Hantar RSVP";
-      //       btnHantar.disabled = false;
-      //       form.reset();
-
-      //       // Tutup modal dan tunjuk alert
-      //       closeRSVPModal();
-      //       alert(
-      //         "Alhamdulillah! Kehadiran anda telah direkodkan. Terima kasih."
-      //       );
-
-      //       // (Optional) Refresh page atau update UI jika perlu
-      //       // location.reload();
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error!", error.message);
-      //       btnHantar.innerHTML = "Cuba Lagi";
-      //       btnHantar.disabled = false;
-      //       alert("Maaf, ada masalah teknikal. Sila cuba sebentar lagi.");
-      //     });
-      // });
-
-      // --- 4. FUNGSI TARIK UCAPAN DARI GOOGLE SHEETS ---
       function loadWishes() {
-        const container = document.getElementById("wishes-container");
-
-        // Guna scriptURL yang sama seperti form RSVP
         fetch(scriptURL)
-          .then((response) => response.json())
-          .then((response) => {
+          .then(res => res.json())
+          .then(response => {
             if (response.result === "success") {
               const wishes = response.data;
-
-              // Kosongkan container (buang spinner loading)
-              container.innerHTML = "";
-
+              wishesContainer.innerHTML = "";
               if (wishes.length === 0) {
-                container.innerHTML =
-                  '<div style="text-align:center; padding:20px;">Belum ada ucapan. Jadilah yang pertama!</div>';
+                wishesContainer.innerHTML = '<div style="text-align:center; padding:20px;">Belum ada ucapan. Jadilah yang pertama!</div>';
               } else {
-                // Loop setiap ucapan dan masukkan ke HTML
-                wishes.forEach((wish) => {
-                  // Escape HTML untuk elak XSS (security)
-                  const safeName = wish.nama
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
-                  const safeWish = wish.ucapan
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
-
-                  const div = document.createElement("div");
-                  div.className = "wish-item";
-                  div.innerHTML = `
-              <div class="wish-text">"${safeWish}"</div>
-              <div class="wish-name">- ${safeName}</div>
-            `;
-                  container.appendChild(div);
+                wishes.forEach(wish => {
+                  const safeName = wish.nama.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                  const safeWish = wish.ucapan.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                  wishesContainer.insertAdjacentHTML('beforeend', `
+                    <div class="wish-item">
+                      <div class="wish-text">"${safeWish}"</div>
+                      <div class="wish-name">- ${safeName}</div>
+                    </div>
+                  `);
                 });
               }
             }
           })
-          .catch((error) => {
-            console.error("Error loading wishes:", error);
-            container.innerHTML =
-              '<div style="text-align:center; color:red; font-size:0.8rem;">Gagal memuatkan ucapan.</div>';
+          .catch(() => {
+            wishesContainer.innerHTML = '<div style="text-align:center; color:red; font-size:0.8rem;">Gagal memuatkan ucapan.</div>';
           });
       }
 
-      // Panggil fungsi ini sebaik sahaja page loading
       window.addEventListener("load", loadWishes);
 
-      // UPDATE TAMBAHAN:
-      // Ubah sedikit code form submit tadi supaya lepas hantar, dia refresh list ucapan
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        btnHantar.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Sedang Menghantar...';
+        btnHantar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghantar...';
         btnHantar.disabled = true;
 
         fetch(scriptURL, { method: "POST", body: new FormData(form) })
-          .then((response) => {
+          .then(() => {
             btnHantar.innerHTML = "Hantar RSVP";
             btnHantar.disabled = false;
             form.reset();
-            closeRSVPModal();
+            closeModal('rsvpModal');
             alert("Terima kasih atas ucapan anda!");
-
-            // RELOAD UCAPAN SECARA AUTOMATIK
-            // Letak spinner balik
-            document.getElementById("wishes-container").innerHTML = `
-        <div style="text-align:center; padding:20px; color:#666;">
-          <i class="fas fa-spinner fa-spin fa-2x"></i>
-          <p>Mengemaskini ucapan...</p>
-        </div>`;
-
-            // Tunggu 1 saat (sebab Google Sheet lambat sikit update) baru reload
+            
+            wishesContainer.innerHTML = `
+              <div style="text-align:center; padding:20px; color:#666;">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Mengemaskini ucapan...</p>
+              </div>`;
             setTimeout(loadWishes, 1500);
           })
-          .catch((error) => {
+          .catch(() => {
             btnHantar.innerHTML = "Cuba Lagi";
             btnHantar.disabled = false;
-            alert("Error!");
+            alert("Maaf, ralat berlaku.");
           });
       });
 
-      // Gallery slider removed — single image used instead.
-      // Existing slider initialization and related handlers have been removed.
-
-      // --- LOGIK POPUP LOKASI ---
-      const locationModal = document.getElementById("locationModal");
-
-      function openLocationModal() {
-        locationModal.style.display = "flex";
-      }
-
-      function closeLocationModal() {
-        locationModal.style.display = "none";
-      }
-
-      // Tambah fungsi tutup modal apabila klik di luar modal
-      window.addEventListener("click", function (event) {
-        if (event.target == locationModal) {
-          locationModal.style.display = "none";
-        }
-        // Tidak mengganggu fungsi sedia ada untuk RSVP modal
-        // if (event.target == modal) { modal.style.display = "none"; }
-      });
-
-      // Letakkan kod ini di akhir bahagian <script>, selepas initGallerySlider()
-
-      // --- 7. FUNGSI FADE-IN PADA SCROLL (Intersection Observer) ---
+      // --- 6. Intersection Observer (Fade-in on scroll) ---
       document.addEventListener("DOMContentLoaded", () => {
-        const fadeElements = document.querySelectorAll(".fade-in-element");
-
-        const observerOptions = {
-          root: null, // Menggunakan viewport sebagai root
-          rootMargin: "0px",
-          threshold: 0.5, // Cetus apabila 10% elemen kelihatan
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
             if (entry.isIntersecting) {
-              // Tambah kelas untuk mencetuskan transisi CSS
               entry.target.classList.add("fade-in-active");
-              // Berhenti memerhati selepas aktif
               observer.unobserve(entry.target);
             }
           });
-        }, observerOptions);
+        }, { threshold: 0.15 }); // Trigger slightly earlier for better flow
 
-        fadeElements.forEach((element) => {
-          // Skrin pembuka (opening screen) akan diuruskan oleh fungsi 'openInvitation'
-          // Tetapi kita perlu pastikan elemen pertama (hero) tidak terkesan oleh 'observer'
-          // jika kita mahu ia muncul sebaik sahaja pintu dibuka.
-          // Dalam kes ini, biarkan observer menguruskan semua, kecuali #opening-screen
-          observer.observe(element);
+        document.querySelectorAll(".fade-in-element").forEach(el => {
+          // Skip hero, it's handled by openInvitation()
+          if(!el.classList.contains('hero')) observer.observe(el);
         });
-
-        // Untuk memastikan skrin hero muncul sebaik sahaja pintu dibuka,
-        // kita akan mencetuskannya secara manual selepas animasi pintu tamat (1s)
-
-        const heroSection = document.querySelector(".hero");
-        const openBtnContainer = document.querySelector(".open-btn-container");
-
-        openBtnContainer.addEventListener("click", () => {
-          // Selepas 1 saat, tetapkan elemen Hero sebagai 'fade-in-active'
-          setTimeout(() => {
-            if (heroSection) {
-              heroSection.classList.add("fade-in-active");
-              // Berhenti memerhati Hero agar tidak mencetus 2 kali
-              observer.unobserve(heroSection);
-            }
-          }, 1000);
-        });
-
-        // Walau bagaimanapun, kerana elemen hero adalah skrin pertama, kita boleh
-        // hanya biarkan Intersection Observer mengurusnya. Ia akan muncul serta-merta
-        // selepas skrin 'gate' hilang. Untuk memastikan semua berfungsi,
-        // kita biarkan logik observer sedia ada.
-
-        // KECUALI: Saya perasan section hero sudah set 'height: 100vh'.
-        // Jadi, ia akan kelihatan sepenuhnya. Biar Intersection Observer urus.
       });
 
-      // --- LOGIK POPUP KONTAK BAHARU ---
-      const contactModal = document.getElementById("contactModal");
-
-      function openContactModal() {
-        contactModal.style.display = "flex";
-      }
-
-      function closeContactModal() {
-        contactModal.style.display = "none";
-      }
-
-      // Tambah fungsi tutup modal apabila klik di luar modal (tambahan)
-      window.addEventListener("click", function (event) {
-        if (event.target == contactModal) {
-          contactModal.style.display = "none";
-        }
-      });
-
-      // --- LOGIK POPUP SIMPAN TARIKH BAHARU ---
-      const saveDateModal = document.getElementById("saveDateModal");
-
-      // Maklumat Acara (Guna maklumat dari seksyen details)
-      const eventTitle = "Majlis Pertunangan Hawa & Najmuddin";
-      const eventLocation = "Balik Pulau, Pulau Pinang";
-      const eventDetails =
-        "Dengan penuh kesyukuran, kami mempersilakan kehadiran Dato' | Datin | Tuan | Puan | Encik | Cik seisi keluarga ke majlis pertunangan kami.";
-      const eventStartDate = new Date("April 04, 2026 14:00:00"); // 2:00 Petang (Mula)
-      const eventEndDate = new Date("April 04, 2026 17:00:00"); // 5:00 Petang (Akhir - Anggaran)
-
-      // Fungsi untuk format tarikh ke string ISO (YYYYMMDDTHHMMSS)
+      // --- 7. Save Date Logic ---
       function toISOString(date) {
-        // Mendapatkan komponen tarikh
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-        const seconds = String(date.getSeconds()).padStart(2, "0");
-
-        // Format: YYYYMMDDTHHMMSS
-        return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+        return date.getFullYear() +
+               String(date.getMonth() + 1).padStart(2, "0") +
+               String(date.getDate()).padStart(2, "0") + "T" +
+               String(date.getHours()).padStart(2, "0") +
+               String(date.getMinutes()).padStart(2, "0") +
+               String(date.getSeconds()).padStart(2, "0");
       }
 
       function generateCalendarLinks() {
-        const start = toISOString(eventStartDate);
-        const end = toISOString(eventEndDate);
-        const title = encodeURIComponent(eventTitle);
-        const description = encodeURIComponent(eventDetails);
-        const location = encodeURIComponent(eventLocation);
+        const start = toISOString(new Date("April 04, 2026 14:00:00"));
+        const end = toISOString(new Date("April 04, 2026 17:00:00"));
+        const title = encodeURIComponent("Majlis Pertunangan Hawa & Najmuddin");
+        const desc = encodeURIComponent("Dengan penuh kesyukuran, kami mempersilakan kehadiran Dato' | Datin | Tuan | Puan | Encik | Cik seisi keluarga ke majlis pertunangan kami.");
+        const loc = encodeURIComponent("Balik Pulau, Pulau Pinang");
 
-        // 1. Google Calendar Link
-        const googleLink = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${description}&location=${location}&sf=true&output=xml`;
-        document.getElementById("btn-google-calendar").href = googleLink;
-
-        // 2. iCalendar (Apple/Outlook) Link - Pautan ini akan menjana fail .ics
-        // Perlu guna Google Search API untuk menjana pautan .ics
-        // Kerana ini adalah tugasan pengubahsuaian HTML/JS tempatan, saya akan gunakan
-        // pautan yang mudah yang menjana .ics, tetapi memerlukan server untuk benar-benar sempurna.
-        // Untuk tujuan demonstrasi dan kemudahan, saya akan biarkan `href` sebagai #
-        // atau boleh gunakan perkhidmatan pihak ketiga jika ada (tapi elak guna perkhidmatan luar).
-        // Untuk tujuan ini, kita akan guna pautan iCal asas.
-        // Kerana ini adalah fail lokal, penjanaan .ics memerlukan Blob/Server Side.
-        // Untuk mematuhi keperluan tanpa server/backend, kita biarkan pautan ini untuk
-        // tujuan simulasi (lazimnya fail .ics akan dijana di backend)
-        // Kita akan guna format asas `webcal://` yang disokong oleh Apple/Outlook
-        const appleLink = `data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//Hawa%20%26%20Najmuddin//NONSGML%20v1.0//EN%0ABEGIN:VEVENT%0AUID:hawanajmuddin%0ADTSTART:${start}%0ADTEND:${end}%0ASUMMARY:${title}%0ALOCATION:${location}%0ADESCRIPTION:${description}%0AEND:VEVENT%0AEND:VCALENDAR`;
-        document.getElementById("btn-apple-calendar").href = appleLink;
+        document.getElementById("btn-google-calendar").href = 
+          `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${desc}&location=${loc}&sf=true&output=xml`;
+        
+        document.getElementById("btn-apple-calendar").href = 
+          `data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0APRODID:-//Hawa%20%26%20Najmuddin//NONSGML%20v1.0//EN%0ABEGIN:VEVENT%0AUID:hawanajmuddin%0ADTSTART:${start}%0ADTEND:${end}%0ASUMMARY:${title}%0ALOCATION:${loc}%0ADESCRIPTION:${desc}%0AEND:VEVENT%0AEND:VCALENDAR`;
       }
-
-      function openSaveDateModal() {
-        generateCalendarLinks(); // Pastikan pautan kalendar dijana setiap kali modal dibuka
-        saveDateModal.style.display = "flex";
-      }
-
-      function closeSaveDateModal() {
-        saveDateModal.style.display = "none";
-      }
-
-      // Tambah fungsi tutup modal apabila klik di luar modal (untuk modal baharu)
-      window.addEventListener("click", function (event) {
-        if (event.target == saveDateModal) {
-          saveDateModal.style.display = "none";
-        }
-      });
     </script>
   </body>
 </html>
-
