@@ -570,11 +570,11 @@
 
         <div class="info-box">
           <div class="info-label">Tempat</div>
-          <p>Balik Pulau, Pulau Pinang</p>
+          <p>Ainaz Homestay, Kampung Perlis, Balik Pulau, Pulau Pinang</p>
           <div class="info-label">Tarikh</div>
-          <p>Sabtu, 4 April 2026<br />16 Shawal 1447H</p>
+          <p>Sabtu, 4 April 2026</p>
           <div class="info-label">Waktu</div>
-          <p>12:00 Tengah Hari</p>
+          <p>11:30 Pagi</p>
         </div>
 
         <button class="btn-outline" onclick="openModal('saveDateModal')">Simpan Tarikh</button>
@@ -879,11 +879,11 @@
       }
 
       function generateCalendarLinks() {
-        const start = toISOString(new Date("April 04, 2026 14:00:00"));
-        const end = toISOString(new Date("April 04, 2026 17:00:00"));
+        const start = toISOString(new Date("April 04, 2026 11:30:00"));
+        const end = toISOString(new Date("April 04, 2026 14:00:00"));
         const title = encodeURIComponent("Majlis Pertunangan Hawa & Najmuddin");
         const desc = encodeURIComponent("Dengan penuh kesyukuran, kami mempersilakan kehadiran Dato' | Datin | Tuan | Puan | Encik | Cik seisi keluarga ke majlis pertunangan kami.");
-        const loc = encodeURIComponent("Balik Pulau, Pulau Pinang");
+        const loc = encodeURIComponent("Ainaz Homestay, Kampung Perlis, Balik Pulau, Pulau Pinang");
 
         document.getElementById("btn-google-calendar").href = 
           `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${desc}&location=${loc}&sf=true&output=xml`;
